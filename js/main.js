@@ -152,10 +152,8 @@ async function reserveGift(giftId) {
       renderGifts(); // Met à jour l'affichage sur la page de l'utilisateur
 
       // Prépare le message WhatsApp.
-      // IMPORTANT : L'API WhatsApp ne permet pas d'envoyer des messages en arrière-plan
-      // sans redirection via du JavaScript côté client. L'ouverture d'une nouvelle
-      // fenêtre/onglet est le comportement attendu pour initier une conversation.
-      const phoneNumber = "+237699999999"; // REMPLACER PAR LE VRAI NUMÉRO DE TÉLÉPHONE
+      // L'ouverture d'une nouvelle fenêtre/onglet est le comportement attendu pour initier une conversation WhatsApp.
+      const phoneNumber = "+23768457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
       const message = `Bonjour ! Je souhaite réserver le cadeau : ${gift.name} (${gift.price}). Mon nom est : ${guestName.trim()}.`;
       const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
@@ -200,7 +198,7 @@ function handleRSVP(event) {
 
   // Encode le message pour l'URL WhatsApp
   const encodedMessage = encodeURIComponent(message);
-  const phoneNumber = "+237699999999"; // REMPLACER PAR LE VRAI NUMÉRO DE TÉLÉPHONE
+  const phoneNumber = "+23768457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   // Ouvre WhatsApp dans une nouvelle fenêtre/onglet
