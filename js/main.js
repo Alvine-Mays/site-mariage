@@ -151,17 +151,19 @@ async function reserveGift(giftId) {
       saveGiftReservations(); // Sauvegarde l'état mis à jour
       renderGifts(); // Met à jour l'affichage sur la page de l'utilisateur
 
-      // Prépare le message WhatsApp sans redirection
+      // Prépare le message WhatsApp.
+      // IMPORTANT : L'API WhatsApp ne permet pas d'envoyer des messages en arrière-plan
+      // sans redirection via du JavaScript côté client. L'ouverture d'une nouvelle
+      // fenêtre/onglet est le comportement attendu pour initier une conversation.
       const phoneNumber = "+237699999999"; // REMPLACER PAR LE VRAI NUMÉRO DE TÉLÉPHONE
       const message = `Bonjour ! Je souhaite réserver le cadeau : ${gift.name} (${gift.price}). Mon nom est : ${guestName.trim()}.`;
       const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
-      // Tente d'ouvrir WhatsApp dans une nouvelle fenêtre/onglet sans rediriger la page actuelle
-      // Note: Cette méthode peut être bloquée par les bloqueurs de pop-up ou nécessiter une interaction utilisateur
+      // Ouvre WhatsApp dans une nouvelle fenêtre/onglet. La page actuelle ne sera PAS redirigée.
       window.open(whatsappUrl, "_blank");
 
-      // Affiche une notification à l'utilisateur
-      alert("Merci pour votre choix ! Un message a été envoyé via WhatsApp pour confirmer votre réservation.");
+      // Affiche une notification à l'utilisateur pour l'informer de l'action.
+      alert("Merci pour votre choix ! Un message a été envoyé via WhatsApp pour confirmer votre réservation. Une nouvelle fenêtre/onglet a pu s'ouvrir.");
     } else {
       alert("La réservation a été annulée. Veuillez entrer votre nom pour réserver un cadeau.");
     }
