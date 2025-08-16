@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
             gap: 2rem;
             margin: 3rem 0;
         }
-        
+
         .gift-card {
             background: white;
             border-radius: 20px;
@@ -24,17 +25,17 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .gift-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
-        
+
         .gift-card.reserved {
             border-color: var(--color-gold-light);
             background: linear-gradient(135deg, var(--color-gold-light), var(--color-cream));
         }
-        
+
         .gift-card.reserved::before {
             content: '';
             position: absolute;
@@ -48,7 +49,7 @@
             transform: rotate(45deg);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
-        
+
         .gift-icon {
             width: 60px;
             height: 60px;
@@ -61,7 +62,7 @@
             color: white;
             font-size: 1.5rem;
         }
-        
+
         .gift-name {
             font-family: 'Playfair Display', serif;
             font-size: 1.3rem;
@@ -70,7 +71,7 @@
             margin-bottom: 1rem;
             line-height: 1.3;
         }
-        
+
         .gift-price {
             font-size: 1.1rem;
             font-weight: 600;
@@ -78,7 +79,7 @@
             text-align: center;
             margin-bottom: 1rem;
         }
-        
+
         .gift-reserved {
             font-size: 0.9rem;
             color: var(--color-brown);
@@ -86,11 +87,11 @@
             margin-bottom: 1rem;
             font-style: italic;
         }
-        
+
         .gift-actions {
             text-align: center;
         }
-        
+
         .btn-reserve {
             background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
             color: white;
@@ -102,12 +103,12 @@
             transition: all 0.3s ease;
             font-size: 1rem;
         }
-        
+
         .btn-reserve:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
         }
-        
+
         .btn-reserved {
             background: var(--color-gray);
             color: white;
@@ -119,7 +120,7 @@
             font-size: 1rem;
             opacity: 0.7;
         }
-        
+
         .gift-instructions {
             background: linear-gradient(135deg, var(--color-gold-light), var(--color-cream));
             border-radius: 20px;
@@ -127,7 +128,7 @@
             margin-bottom: 3rem;
             border-left: 4px solid var(--color-gold);
         }
-        
+
         .gift-instructions h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
@@ -137,24 +138,25 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .gift-instructions p {
             color: var(--color-gray-dark);
             line-height: 1.6;
             margin-bottom: 1rem;
         }
-        
+
         .gift-instructions ul {
             color: var(--color-gray-dark);
             line-height: 1.6;
             padding-left: 1.5rem;
         }
-        
+
         .gift-instructions li {
             margin-bottom: 0.5rem;
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -182,7 +184,8 @@
     <!-- Header -->
     <section class="section wedding-gradient" style="padding-top: 8rem;">
         <div class="container text-center">
-            <h1 class="font-great-vibes" style="font-size: 4rem; color: var(--color-gold); margin-bottom: 2rem;">Liste de Cadeaux</h1>
+            <h1 class="font-great-vibes" style="font-size: 4rem; color: var(--color-gold); margin-bottom: 2rem;">Liste
+                de Cadeaux</h1>
             <div class="section-divider"></div>
             <p class="section-subtitle">Aidez-nous à construire notre nid d'amour</p>
         </div>
@@ -197,7 +200,8 @@
                     Comment ça marche ?
                 </h3>
                 <p>
-                    Nous avons préparé cette liste de cadeaux pour vous aider à nous faire plaisir tout en évitant les doublons. 
+                    Nous avons préparé cette liste de cadeaux pour vous aider à nous faire plaisir tout en évitant les
+                    doublons.
                     Voici comment procéder :
                 </p>
                 <ul>
@@ -208,11 +212,11 @@
                     <li>Vous pourrez ensuite l'acheter et nous l'offrir le jour J !</li>
                 </ul>
                 <p style="margin-top: 1rem;">
-                    <strong>Note :</strong> Cette liste est indicative. Si vous avez une autre idée de cadeau, 
+                    <strong>Note :</strong> Cette liste est indicative. Si vous avez une autre idée de cadeau,
                     nous serons ravis de la découvrir !
                 </p>
             </div>
-            
+
             <div id="gifts-container" class="gifts-grid">
                 <!-- Les cadeaux seront générés par JavaScript -->
             </div>
@@ -224,7 +228,7 @@
         <div class="container">
             <h2 class="section-title animate-on-scroll">Autres idées</h2>
             <div class="section-divider"></div>
-            
+
             <div class="grid grid-3" style="margin-top: 3rem;">
                 <div class="card animate-on-scroll">
                     <div class="card-icon">
@@ -235,7 +239,7 @@
                         Contribuez à notre voyage de noces pour nous créer des souvenirs inoubliables
                     </p>
                 </div>
-                
+
                 <div class="card animate-on-scroll">
                     <div class="card-icon">
                         <i class="fas fa-home"></i>
@@ -245,7 +249,7 @@
                         Aidez-nous à aménager notre nouveau foyer avec des éléments de décoration
                     </p>
                 </div>
-                
+
                 <div class="card animate-on-scroll">
                     <div class="card-icon">
                         <i class="fas fa-heart"></i>
@@ -277,16 +281,30 @@
         // Fonction pour assigner des icônes aux cadeaux
         function getGiftIcon(giftName) {
             const name = giftName.toLowerCase();
-            if (name.includes('thé') || name.includes('service')) return 'fas fa-coffee';
-            if (name.includes('drap') || name.includes('soie')) return 'fas fa-bed';
-            if (name.includes('cuisine') || name.includes('ustensile')) return 'fas fa-utensils';
-            if (name.includes('vase') || name.includes('cristal')) return 'fas fa-wine-glass';
-            if (name.includes('tableau') || name.includes('décoratif')) return 'fas fa-image';
-            if (name.includes('lampe') || name.includes('salon')) return 'fas fa-lightbulb';
-            if (name.includes('verre') || name.includes('vin')) return 'fas fa-wine-glass-alt';
-            if (name.includes('coussin')) return 'fas fa-couch';
-            if (name.includes('miroir')) return 'fas fa-mirror';
-            if (name.includes('plaid') || name.includes('cachemire')) return 'fas fa-tshirt';
+            if (name.includes('cuisinière') || name.includes('gaz')) return 'fas fa-fire-burner';
+            if (name.includes('machine à laver')) return 'fas fa-soap';
+            if (name.includes('salon') || name.includes('fauteuil')) return 'fas fa-couch';
+            if (name.includes('télévision') || name.includes('tv')) return 'fas fa-tv';
+            if (name.includes('salle à manger') || name.includes('chaise')) return 'fas fa-chair';
+            if (name.includes('réfrigérateur') || name.includes('congélateur')) return 'fas fa-snowflake';
+            if (name.includes('cuisine') || name.includes('marmite')) return 'fas fa-utensils';
+            if (name.includes('mixeur') || name.includes('blender')) return 'fas fa-blender';
+            if (name.includes('bouilloire') || name.includes('cafetière')) return 'fas fa-mug-hot';
+            if (name.includes('thé') || name.includes('café')) return 'fas fa-coffee';
+            if (name.includes('tissu') || name.includes('wax')) return 'fas fa-tshirt';
+            if (name.includes('plaid') || name.includes('couverture')) return 'fas fa-bed';
+            if (name.includes('table basse')) return 'fas fa-table';
+            if (name.includes('tableau') || name.includes('art')) return 'fas fa-palette';
+            if (name.includes('épice') || name.includes('condiment')) return 'fas fa-pepper-hot';
+            if (name.includes('fer à repasser')) return 'fas fa-iron';
+            if (name.includes('vaisselle')) return 'fas fa-plate-wheat';
+            if (name.includes('rideau')) return 'fas fa-store';
+            if (name.includes('nappe') || name.includes('serviette')) return 'fas fa-table';
+            if (name.includes('ventilateur')) return 'fas fa-fan';
+            if (name.includes('lit') || name.includes('matrimonial')) return 'fas fa-bed';
+            if (name.includes('armoire') || name.includes('dressing')) return 'fas fa-wardrobe';
+            if (name.includes('aspirateur')) return 'fas fa-broom';
+            if (name.includes('micro-ondes')) return 'fas fa-microchip';
             return 'fas fa-gift';
         }
 
@@ -296,31 +314,30 @@
             if (!giftsContainer) return;
 
             giftsContainer.innerHTML = '';
-            
+
             gifts.forEach(gift => {
                 const giftCard = document.createElement('div');
                 giftCard.className = `gift-card ${gift.reserved ? 'reserved' : ''}`;
-                
+
                 const iconClass = getGiftIcon(gift.name);
-                
+
                 giftCard.innerHTML = `
                     <div class="gift-icon">
                         <i class="${iconClass}"></i>
                     </div>
-                    <h3 class="gift-name">${gift.name}</h3>
-                    <p class="gift-price">${gift.price}</p>
+                    <h3 class="gift-name">${gift.name}</h3> 
                     ${gift.reserved ? `<p class="gift-reserved">Réservé par ${gift.reservedBy}</p>` : ''}
                     <div class="gift-actions">
-                        ${!gift.reserved ? 
-                            `<button class="btn-reserve" onclick="reserveGift(${gift.id})">
+                        ${!gift.reserved ?
+                        `<button class="btn-reserve" onclick="reserveGift(${gift.id})">
                                 <i class="fas fa-shopping-cart" style="margin-right: 8px;"></i>
                                 Réserver
                             </button>` :
-                            `<button class="btn-reserved" disabled>
+                        `<button class="btn-reserved" disabled>
                                 <i class="fas fa-check" style="margin-right: 8px;"></i>
                                 Réservé
                             </button>`
-                        }
+                    }
                     </div>
                 `;
                 giftsContainer.appendChild(giftCard);
@@ -328,10 +345,10 @@
         }
 
         // Initialiser l'affichage des cadeaux au chargement
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderGifts();
         });
     </script>
 </body>
-</html>
 
+</html>

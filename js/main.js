@@ -77,16 +77,30 @@ window.addEventListener("load", animateOnScroll);
 // 'reserved' indique si le cadeau est réservé localement par l'utilisateur actuel.
 // 'reservedBy' n'est plus utilisé pour l'affichage public pour des raisons de confidentialité.
 let gifts = [
-  { id: 1, name: "Service à thé en porcelaine", price: "150€", reserved: false },
-  { id: 2, name: "Ensemble de draps en soie", price: "200€", reserved: false },
-  { id: 3, name: "Coffret ustensiles de cuisine", price: "120€", reserved: false },
-  { id: 4, name: "Vase en cristal", price: "180€", reserved: false },
-  { id: 5, name: "Tableau décoratif", price: "250€", reserved: false },
-  { id: 6, name: "Lampe de salon design", price: "300€", reserved: false },
-  { id: 7, name: "Set de verres à vin", price: "80€", reserved: false },
-  { id: 8, name: "Coussin décoratif (lot de 4)", price: "100€", reserved: false },
-  { id: 9, name: "Miroir vintage", price: "220€", reserved: false },
-  { id: 10, name: "Plaid en cachemire", price: "160€", reserved: false },
+  { id: 1, name: "Cuisinière gaz 4 feux + four", reserved: false },
+  { id: 2, name: "Machine à laver automatique 8kg", reserved: false },
+  { id: 3, name: "Salon complet 5 places", reserved: false },
+  { id: 4, name: "Télévision LED 55 pouces", reserved: false },
+  { id: 5, name: "Table de salle à manger + 6 chaises", reserved: false },
+  { id: 6, name: "Réfrigérateur-congélateur", reserved: false },
+  { id: 7, name: "Set de cuisine traditionnelle (marmites en fonte)", reserved: false },
+  { id: 9, name: "Mixeur-blender professionnel + batteur", reserved: false },
+  { id: 10, name: "Bouilloire et cafetière électriques", reserved: false },
+  { id: 11, name: "Service à thé et café (plateau inclus)", reserved: false },
+  { id: 12, name: "Tissus wax pour ameublement", reserved: false },
+  { id: 14, name: "Plaids et couvertures en tissu africain", reserved: false },
+  { id: 15, name: "Table basse artisanale en bois massif", reserved: false },
+  { id: 16, name: "Tableau d'art africain contemporain", reserved: false },
+  { id: 17, name: "Coffret d'épices et condiments africains", reserved: false },
+  { id: 18, name: "Fer à repasser vapeur professionnel", reserved: false },
+  { id: 19, name: "Ensemble de vaisselle", reserved: false },
+  { id: 21, name: "Rideaux en tissu africain pour salon", reserved: false },
+  { id: 22, name: "Nappe et serviettes de table assorties", reserved: false },
+  { id: 23, name: "Ventilateur sur pied oscillant", reserved: false },
+  { id: 25, name: "Lit matrimonial + tête de lit", reserved: false },
+  { id: 26, name: "Armoire dressing", reserved: false },
+  { id: 27, name: "Aspirateur balai sans fil", reserved: false },
+  { id: 28, name: "Micro-ondes grill", reserved: false }
 ];
 
 // Charge l'état des réservations depuis le stockage local du navigateur
@@ -115,8 +129,7 @@ function renderGifts() {
     giftCard.className = "card gift-card";
     giftCard.innerHTML = `
             <div class="gift-info">
-                <h3 class="gift-name">${gift.name}</h3>
-                <p class="gift-price">${gift.price}</p>
+                <h3 class="gift-name">${gift.name}</h3> 
             </div>
             <div class="gift-actions">
                 ${
@@ -153,7 +166,7 @@ async function reserveGift(giftId) {
 
       // Prépare le message WhatsApp.
       // L'ouverture d'une nouvelle fenêtre/onglet est le comportement attendu pour initier une conversation WhatsApp.
-      const phoneNumber = "+23768457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
+      const phoneNumber = "242068457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
       const message = `Bonjour ! Je souhaite réserver le cadeau : ${gift.name} (${gift.price}). Mon nom est : ${guestName.trim()}.`;
       const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
@@ -198,7 +211,7 @@ function handleRSVP(event) {
 
   // Encode le message pour l'URL WhatsApp
   const encodedMessage = encodeURIComponent(message);
-  const phoneNumber = "+23768457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
+  const phoneNumber = "242068457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   // Ouvre WhatsApp dans une nouvelle fenêtre/onglet
