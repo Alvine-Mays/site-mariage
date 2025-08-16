@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - Mariage Sandrine & Théodore</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery-caption {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        /* Modal */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-caption {
+            color: white;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--color-gold);
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .gallery-overlay {
+                transform: translateY(0);
+                background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="../index.html" class="navbar-logo">
+                <i class="fas fa-heart" style="margin-right: 10px;"></i>
+                Sandrine & Théodore
+            </a>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="../index.html" class="navbar-link">Accueil</a></li>
+                <li class="navbar-item"><a href="programme.html" class="navbar-link">Programme</a></li>
+                <li class="navbar-item"><a href="dress-code.html" class="navbar-link">Dress Code</a></li>
+                <li class="navbar-item"><a href="galerie.html" class="navbar-link">Galerie</a></li>
+                <li class="navbar-item"><a href="cadeaux.html" class="navbar-link">Liste de Cadeaux</a></li>
+                <li class="navbar-item"><a href="rsvp.html" class="navbar-link">RSVP</a></li>
+            </ul>
+            <div class="navbar-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="section wedding-gradient" style="padding-top: 8rem;">
+        <div class="container text-center">
+            <h1 class="font-great-vibes" style="font-size: 4rem; color: var(--color-gold); margin-bottom: 2rem;">Galerie</h1>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Nos plus beaux moments ensemble</p>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="gallery-grid">
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_1.jpg" alt="Moment romantique au restaurant" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Dîner romantique</h3>
+                        <p class="gallery-caption">Un moment privilégié à deux, savourant chaque instant de bonheur partagé</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_2.jpg" alt="Sortie élégante ensemble" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Élégance à deux</h3>
+                        <p class="gallery-caption">Toujours élégants et complices lors de nos sorties officielles</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_3.jpg" alt="Voyage en voiture" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Aventures ensemble</h3>
+                        <p class="gallery-caption">Nos escapades et voyages, toujours dans la joie et la complicité</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_4.jpg" alt="Moment détendu" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Moments détente</h3>
+                        <p class="gallery-caption">Ces instants précieux où nous profitons simplement d'être ensemble</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_5.jpg" alt="Soirée entre amis" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Soirée entre amis</h3>
+                        <p class="gallery-caption">Entourés de nos proches, partageant rires et bons moments</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_6.jpg" alt="Complicité amoureuse" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Complicité</h3>
+                        <p class="gallery-caption">Cette complicité unique qui nous unit et nous rend plus forts</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_7.jpg" alt="Repas en amoureux" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Repas en amoureux</h3>
+                        <p class="gallery-caption">Savourant ensemble les plaisirs de la table et de la conversation</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_8.jpg" alt="Selfie complice" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Selfie complice</h3>
+                        <p class="gallery-caption">Immortalisant nos sourires et notre bonheur d'être ensemble</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item animate-on-scroll">
+                    <img src="../images/gallery_9.jpg" alt="Moment tendre" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title">Tendresse</h3>
+                        <p class="gallery-caption">Ces gestes tendres qui expriment tout l'amour que nous nous portons</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section wedding-gradient">
+        <div class="container text-center">
+            <h2 class="section-title animate-on-scroll">Partagez vos souvenirs</h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle animate-on-scroll">
+                Vous avez des photos de nous ? N'hésitez pas à les partager avec le hashtag 
+                <strong style="color: var(--color-gold);">#SandrineTheodore2025</strong>
+            </p>
+            <div class="animate-on-scroll" style="margin-top: 2rem;">
+                <a href="rsvp.html" class="btn btn-primary">
+                    <i class="fas fa-heart"></i>
+                    Confirmer ma présence
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="gallery-modal" class="gallery-modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img id="modal-image" class="modal-image" src="" alt="">
+            <p id="modal-caption" class="modal-caption"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
+                Sandrine & Théodore
+                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
+            </div>
+            <p class="footer-text">Célébrons ensemble notre union le 25 octobre 2025</p>
+            <p class="footer-copyright">© Tous droits réservés - CyberFusion GROUP by Server Gold | 2025</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+

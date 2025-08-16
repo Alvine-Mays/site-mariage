@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP - Mariage Sandrine & Théodore</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--color-gold-light);
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--color-brown);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--color-gold-light);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--color-ivory);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .event-group {
+            background: linear-gradient(135deg, var(--color-gold-light), var(--color-cream));
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--color-gold);
+        }
+        
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--color-brown);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .event-details {
+            font-size: 0.9rem;
+            color: var(--color-gray);
+            margin-bottom: 1rem;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--color-gold);
+        }
+        
+        .radio-option label {
+            cursor: pointer;
+            color: var(--color-gray-dark);
+            font-weight: 500;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .whatsapp-info {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .whatsapp-info h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .whatsapp-info p {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .rsvp-form {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="../index.html" class="navbar-logo">
+                <i class="fas fa-heart" style="margin-right: 10px;"></i>
+                Sandrine & Théodore
+            </a>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="../index.html" class="navbar-link">Accueil</a></li>
+                <li class="navbar-item"><a href="programme.html" class="navbar-link">Programme</a></li>
+                <li class="navbar-item"><a href="dress-code.html" class="navbar-link">Dress Code</a></li>
+                <li class="navbar-item"><a href="galerie.html" class="navbar-link">Galerie</a></li>
+                <li class="navbar-item"><a href="cadeaux.html" class="navbar-link">Liste de Cadeaux</a></li>
+                <li class="navbar-item"><a href="rsvp.html" class="navbar-link">RSVP</a></li>
+            </ul>
+            <div class="navbar-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="section wedding-gradient" style="padding-top: 8rem;">
+        <div class="container text-center">
+            <h1 class="font-great-vibes" style="font-size: 4rem; color: var(--color-gold); margin-bottom: 2rem;">RSVP</h1>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Confirmez votre présence à nos célébrations</p>
+        </div>
+    </section>
+
+    <!-- RSVP Form -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="whatsapp-info animate-on-scroll">
+                <h3>
+                    <i class="fab fa-whatsapp"></i>
+                    Confirmation via WhatsApp
+                </h3>
+                <p>
+                    Après avoir rempli ce formulaire, vous serez automatiquement redirigé vers WhatsApp 
+                    pour nous envoyer votre confirmation. C'est simple, rapide et sécurisé !
+                </p>
+            </div>
+            
+            <form id="rsvp-form" class="rsvp-form animate-on-scroll">
+                <div class="form-group">
+                    <label for="guestName" class="form-label">
+                        <i class="fas fa-user" style="color: var(--color-gold); margin-right: 8px;"></i>
+                        Votre nom complet *
+                    </label>
+                    <input type="text" id="guestName" name="guestName" class="form-input" required 
+                           placeholder="Entrez votre nom et prénom">
+                </div>
+
+                <!-- Dot Event -->
+                <div class="event-group">
+                    <h3 class="event-title">
+                        <i class="fas fa-heart"></i>
+                        Dot - 23 Octobre 2025
+                    </h3>
+                    <p class="event-details">
+                        <i class="fas fa-clock" style="color: var(--color-gold);"></i> 13h00 - 
+                        <i class="fas fa-map-marker-alt" style="color: var(--color-gold);"></i> Parc zoologique
+                    </p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="dot-oui" name="dotAttendance" value="oui">
+                            <label for="dot-oui">Je serai présent(e)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="dot-non" name="dotAttendance" value="non">
+                            <label for="dot-non">Je ne pourrai pas venir</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Civil Marriage -->
+                <div class="event-group">
+                    <h3 class="event-title">
+                        <i class="fas fa-balance-scale"></i>
+                        Mariage Civil - 25 Octobre 2025
+                    </h3>
+                    <p class="event-details">
+                        <i class="fas fa-clock" style="color: var(--color-gold);"></i> 12h00 - 
+                        <i class="fas fa-map-marker-alt" style="color: var(--color-gold);"></i> La Royale
+                    </p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="civil-oui" name="civilAttendance" value="oui">
+                            <label for="civil-oui">Je serai présent(e)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="civil-non" name="civilAttendance" value="non">
+                            <label for="civil-non">Je ne pourrai pas venir</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Religious Marriage -->
+                <div class="event-group">
+                    <h3 class="event-title">
+                        <i class="fas fa-church"></i>
+                        Mariage Religieux - 25 Octobre 2025
+                    </h3>
+                    <p class="event-details">
+                        <i class="fas fa-clock" style="color: var(--color-gold);"></i> 15h00 - 
+                        <i class="fas fa-map-marker-alt" style="color: var(--color-gold);"></i> La Royale
+                    </p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="religious-oui" name="religiousAttendance" value="oui">
+                            <label for="religious-oui">Je serai présent(e)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="religious-non" name="religiousAttendance" value="non">
+                            <label for="religious-non">Je ne pourrai pas venir</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Party -->
+                <div class="event-group">
+                    <h3 class="event-title">
+                        <i class="fas fa-music"></i>
+                        Soirée de Célébration - 25 Octobre 2025
+                    </h3>
+                    <p class="event-details">
+                        <i class="fas fa-clock" style="color: var(--color-gold);"></i> 20h00 - 
+                        <i class="fas fa-map-marker-alt" style="color: var(--color-gold);"></i> La Royale
+                    </p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="party-oui" name="partyAttendance" value="oui">
+                            <label for="party-oui">Je serai présent(e)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="party-non" name="partyAttendance" value="non">
+                            <label for="party-non">Je ne pourrai pas venir</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="allergies" class="form-label">
+                        <i class="fas fa-utensils" style="color: var(--color-gold); margin-right: 8px;"></i>
+                        Allergies alimentaires ou régimes particuliers
+                    </label>
+                    <textarea id="allergies" name="allergies" class="form-input form-textarea" 
+                              placeholder="Indiquez-nous vos allergies ou régimes particuliers (optionnel)"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fab fa-whatsapp" style="margin-right: 10px;"></i>
+                    Confirmer via WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Important Info -->
+    <section class="section wedding-gradient">
+        <div class="container">
+            <div class="card animate-on-scroll" style="background: white; border-left: 4px solid var(--color-gold); text-align: left;">
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="background: var(--color-gold-light); padding: 1rem; border-radius: 50%; flex-shrink: 0;">
+                        <i class="fas fa-info-circle" style="color: var(--color-gold); font-size: 1.5rem;"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-playfair" style="font-size: 1.5rem; color: var(--color-brown); margin-bottom: 1rem;">
+                            Informations importantes
+                        </h3>
+                        <ul style="color: var(--color-gray-dark); line-height: 1.6; padding-left: 1.5rem;">
+                            <li style="margin-bottom: 0.5rem;">Merci de confirmer votre présence avant le <strong>15 octobre 2025</strong></li>
+                            <li style="margin-bottom: 0.5rem;">N'hésitez pas à nous contacter si vous avez des questions</li>
+                            <li style="margin-bottom: 0.5rem;">Votre présence est le plus beau des cadeaux !</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
+                Sandrine & Théodore
+                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
+            </div>
+            <p class="footer-text">Célébrons ensemble notre union le 25 octobre 2025</p>
+            <p class="footer-copyright">© Tous droits réservés - CyberFusion GROUP by Server Gold | 2025</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+

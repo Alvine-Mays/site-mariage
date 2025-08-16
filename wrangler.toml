@@ -1,0 +1,5 @@
+name = "mariage-sandrine-theodore"
+compatibility_date = "2023-05-18"
+
+[env.production.site]
+bucket = "./dist"
