@@ -163,7 +163,7 @@ async function reserveGift(giftId) {
       window.open(whatsappUrl, "_blank");
 
       // Affiche une notification à l'utilisateur pour l'informer de l'action.
-      alert("Merci pour votre choix ! Un message a été envoyé via WhatsApp pour confirmer votre réservation. Une nouvelle fenêtre/onglet a pu s'ouvrir.");
+      alert("Merci pour votre choix ! Vous allez être redirigé vers WhatsApp pour envoyer votre confirmation.");
     } else {
       alert("La réservation a été annulée. Veuillez entrer votre nom pour réserver un cadeau.");
     }
