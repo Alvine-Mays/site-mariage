@@ -6,9 +6,32 @@
     <title>Programme - Mariage Sandrine & Théodore</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="../index.html" class="navbar-logo">
@@ -31,7 +54,6 @@
         </div>
     </nav>
 
-    <!-- Header -->
     <section class="section wedding-gradient" style="padding-top: 8rem;">
         <div class="container text-center">
             <h1 class="font-great-vibes" style="font-size: 4rem; color: var(--color-gold); margin-bottom: 2rem;">Programme</h1>
@@ -40,11 +62,9 @@
         </div>
     </section>
 
-    <!-- Timeline -->
     <section class="section" style="background: white;">
         <div class="container">
             <div class="timeline">
-                <!-- Dot Event -->
                 <div class="timeline-item animate-on-scroll">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
@@ -67,10 +87,12 @@
                             Cérémonie traditionnelle de la dot en famille. Un moment privilégié où nos familles 
                             se rencontrent officiellement et célèbrent notre union selon nos traditions.
                         </p>
+                        <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.7332023603717!2d15.257498173862068!3d-4.272005795701911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a6a33b5af564531%3A0x53dc2058d777d724!2sParc%20Zoologique%20et%20Botanique%20de%20Brazzaville%20-%20Zoolandia!5e0!3m2!1sfr!2scg!4v1755978042436!5m2!1sfr!2scg" target="_blank" class="map-link">
+                            <i class="fas fa-map-marker-alt"></i> Voir sur la carte 
+                        </a>
                     </div>
                 </div>
 
-                <!-- Civil Marriage -->
                 <div class="timeline-item animate-on-scroll">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
@@ -82,7 +104,7 @@
                         <div class="timeline-details">
                             <div class="timeline-detail">
                                 <i class="fas fa-clock" style="color: var(--color-gold);"></i>
-                                <span>12h00</span>
+                                <span>10h-11h</span>
                             </div>
                             <div class="timeline-detail">
                                 <i class="fas fa-map-marker-alt" style="color: var(--color-gold);"></i>
@@ -96,7 +118,6 @@
                     </div>
                 </div>
 
-                <!-- Religious Marriage -->
                 <div class="timeline-item animate-on-scroll">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
@@ -108,7 +129,7 @@
                         <div class="timeline-details">
                             <div class="timeline-detail">
                                 <i class="fas fa-clock" style="color: var(--color-gold);"></i>
-                                <span>15h00</span>
+                                <span>13h-14h</span>
                             </div>
                             <div class="timeline-detail">
                                 <i class="fas fa-map-marker-alt" style="color: var(--color-gold);"></i>
@@ -122,7 +143,35 @@
                     </div>
                 </div>
 
-                <!-- Party -->
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-date">25 Octobre 2025</div>
+                        <h3 class="timeline-title">
+                            <i class="fas fa-glass-cheers" style="color: var(--color-gold); margin-right: 10px;"></i>
+                            Cocktail
+                        </h3>
+                        <div class="timeline-details">
+                            <div class="timeline-detail">
+                                <i class="fas fa-clock" style="color: var(--color-gold);"></i>
+                                <span>17h00</span>
+                            </div>
+                            <div class="timeline-detail">
+                                <i class="fas fa-map-marker-alt" style="color: var(--color-gold);"></i>
+                                <span>La Royale</span>
+                            </div>
+                        </div>
+                        <p style="color: var(--color-gray);">
+                            Suite à la bénédiction, nous vous invitons à nous rejoindre pour un cocktail rafraîchissant où nous pourrons trinquer à notre union et partager un moment de convivialité.
+                        </p>
+                        <div class="image-gallery">
+                            <img src="../images/cok1.jpg" alt="Cocktail de mariage 1">
+                            <img src="../images/cok2.jpg" alt="Cocktail de mariage 2">
+                            <img src="../images/cok3.jpg" alt="Cocktail de mariage 3">
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="timeline-item animate-on-scroll">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
@@ -143,15 +192,19 @@
                         </div>
                         <p style="color: var(--color-gray);">
                             Dîner, danse et festivités jusqu'au bout de la nuit ! Rejoignez-nous pour célébrer 
-                            dans la joie et la bonne humeur avec un délicieux repas et de la musique.
+                            dans la joie et la bonne humeur avec un délicieux repas et de la musique. 
                         </p>
+                        <div class="image-gallery">
+                            <img src="https://images.unsplash.com/photo-1517457210744-325b5974a49c" alt="Salle de fête 1">
+                            <img src="https://images.unsplash.com/photo-1518175111107-1d54f59e66d4" alt="Salle de fête 2">
+                            <img src="https://images.unsplash.com/photo-1518175110825-961474020a65" alt="Salle de fête 3">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Important Notes -->
     <section class="section" style="background: linear-gradient(135deg, var(--color-gold-light), var(--color-cream));">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Informations Pratiques</h2>
@@ -187,27 +240,29 @@
                     Note importante
                 </h3>
                 <p class="card-text" style="text-align: left;">
-                    Tous les événements du 25 octobre se déroulent au même lieu : <strong>La Royale</strong>. 
-                    Vous n'aurez pas besoin de vous déplacer entre les cérémonies.
+                    La célébration du mariage civil et religieux se déroulera au même endroit : <strong>La Royale</strong>. 
+                    Vous n’aurez pas besoin de vous déplacer entre les cérémonies. <br>
+                    La soirée se déroulera au lieu indiqué sur <strong>la Carte</strong>.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-logo">
-                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
-                Sandrine & Théodore
-                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
+        <div class="footer-container">
+            <div class="footer-decoration">
+                <i class="fas fa-heart"></i>
             </div>
-            <p class="footer-text">Célébrons ensemble notre union le 25 octobre 2025</p>
-            <p class="footer-copyright">© Tous droits réservés - CyberFusion GROUP by Server Gold | 2025</p>
+            <h2 class="font-great-vibes footer-names">Sandrine & Théodore</h2>
+            <p class="footer-thank-you">Merci d'avoir partagé ce moment avec nous.</p>
+            <div class="footer-date">25 Octobre 2025</div>
+            <p class="footer-copyright">
+                © 2025 Sandrine & Théodore. Tous droits réservés. <br>
+                <small>Développé par <em>Server Gold</em>, <strong>CyberFusion GROUP</strong></small>
+            </p>
         </div>
     </footer>
 
     <script src="../js/main.js"></script>
 </body>
 </html>
-

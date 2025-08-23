@@ -96,8 +96,7 @@ let gifts = [
   { id: 19, name: "Ensemble de vaisselle", reserved: false },
   { id: 21, name: "Rideaux en tissu africain pour salon", reserved: false },
   { id: 22, name: "Nappe et serviettes de table assorties", reserved: false },
-  { id: 23, name: "Ventilateur sur pied oscillant", reserved: false },
-  { id: 25, name: "Lit matrimonial + tête de lit", reserved: false },
+  { id: 23, name: "Ventilateur sur pied oscillant", reserved: false }, 
   { id: 26, name: "Armoire dressing", reserved: false },
   { id: 27, name: "Aspirateur balai sans fil", reserved: false },
   { id: 28, name: "Micro-ondes grill", reserved: false }
@@ -166,7 +165,7 @@ async function reserveGift(giftId) {
 
       // Prépare le message WhatsApp.
       // L'ouverture d'une nouvelle fenêtre/onglet est le comportement attendu pour initier une conversation WhatsApp.
-      const phoneNumber = "242068457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
+      const phoneNumber = "242053823605"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
       const message = `Bonjour ! Je souhaite réserver le cadeau : ${gift.name} (${gift.price}). Mon nom est : ${guestName.trim()}.`;
       const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
 
@@ -196,12 +195,11 @@ function handleRSVP(event) {
 
   // Construit le message WhatsApp avec les informations du formulaire
   let message = `Bonjour ! Je confirme ma présence au mariage de Sandrine & Théodore :\n\n`;
-  message += `Nom : ${guestName}\n\n`;
-  message += `Présence confirmée pour :\n`;
+  message += `*Nom* : ${guestName}\n\n`;
+  message += `*Présence confirmée pour* :\n`;
   if (dotAttendance === "oui") message += `✅ Dot (23 octobre à 13h)\n`;
   if (civilAttendance === "oui") message += `✅ Mariage Civil (25 octobre à 12h)\n`;
-  if (religiousAttendance === "oui") message += `✅ Mariage Religieux (25 octobre à 15h)\n`;
-  if (partyAttendance === "oui") message += `✅ Soirée (25 octobre à 20h)\n`;
+  if (religiousAttendance === "oui") message += `✅ Mariage Religieux (25 octobre à 15h)\n`; 
 
   if (allergies) {
     message += `\nAllergies/Régimes particuliers : ${allergies}`;
@@ -211,7 +209,7 @@ function handleRSVP(event) {
 
   // Encode le message pour l'URL WhatsApp
   const encodedMessage = encodeURIComponent(message);
-  const phoneNumber = "242068457521"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
+  const phoneNumber = "242053823605"; // NUMÉRO DE TÉLÉPHONE MIS À JOUR
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   // Ouvre WhatsApp dans une nouvelle fenêtre/onglet

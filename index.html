@@ -6,6 +6,95 @@
     <title>Mariage Sandrine & Théodore</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Styles pour le carrousel d'images */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .slideshow-container {
+            margin-top: 3rem;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            padding: 1rem 0;
+            background: var(--color-ivory);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .slideshow-container::before,
+        .slideshow-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .slideshow-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--color-ivory) 0%, rgba(255, 255, 240, 0) 100%);
+        }
+
+        .slideshow-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--color-ivory) 0%, rgba(255, 255, 240, 0) 100%);
+        }
+
+        .slideshow-track {
+            display: flex;
+            /* Largeur calculée : (taille d'une image) * (nombre d'images * 2) */
+            width: calc(250px * 8);
+            animation: scroll 25s linear infinite;
+        }
+
+        .slide {
+            width: 250px;
+            height: 180px;
+            flex-shrink: 0;
+            padding: 0 10px;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .slide img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive pour le carrousel */
+        @media (max-width: 768px) {
+            .slideshow-track {
+                width: calc(200px * 8);
+            }
+            .slide {
+                width: 200px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slideshow-track {
+                width: calc(150px * 8);
+            }
+            .slide {
+                width: 150px;
+                height: 110px;
+            }
+            .slideshow-container::before,
+            .slideshow-container::after {
+                width: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -33,7 +122,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-background" style="background-image: url('images/gallery_2.jpg');"></div>
+        <div class="hero-background" style="background-image: url('images/bg.jpg');"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content animate-fade-in">
             <i class="fas fa-heart" style="font-size: 4rem; color: var(--color-gold); margin-bottom: 2rem; animation: float 3s ease-in-out infinite;"></i>
@@ -64,41 +153,31 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- Introduction & Slideshow Section -->
     <section class="section" style="background: white;">
         <div class="container">
-            <h2 class="section-title animate-on-scroll">Notre Histoire</h2>
+            <h2 class="section-title animate-on-scroll">Bienvenue sur notre site de mariage</h2>
             <div class="section-divider"></div>
             <p class="section-subtitle animate-on-scroll">
-                Deux âmes qui se sont trouvées, deux cœurs qui battent à l'unisson. 
-                Sandrine, Docteure dévouée, et Théodore, Ingénieur passionné, 
-                s'apprêtent à écrire ensemble le plus beau chapitre de leur vie.
+                Nous sommes ravis de partager ce moment unique avec vous. Sur ce site, vous trouverez toutes les informations nécessaires pour célébrer notre union. Nous avons hâte de vous voir et de créer ensemble des souvenirs inoubliables.
             </p>
-            
-            <div class="grid grid-2" style="margin-top: 3rem;">
-                <div class="card animate-on-scroll">
-                    <div class="card-icon">
-                        <i class="fas fa-user-md"></i>
-                    </div>
-                    <h3 class="card-title">Sandrine</h3>
-                    <p class="card-text">
-                        Docteure passionnée par son métier, Sandrine apporte douceur et compassion 
-                        dans tout ce qu'elle entreprend. Son sourire illumine chaque journée.
-                    </p>
-                    <div style="color: var(--color-gold); font-weight: 600; margin-top: 1rem;">Docteure</div>
+
+            <!-- Slideshow -->
+            <div class="slideshow-container animate-on-scroll">
+                <a href="pages/galerie.html">
+                    <div class="slideshow-track">
+                    <!-- Les images sont dupliquées pour un effet de boucle infini -->
+                    <div class="slide"><img src="images/gallery_1.jpg" alt="Souvenir 1"></div>
+                    <div class="slide"><img src="images/gallery_3.jpg" alt="Souvenir 2"></div>
+                    <div class="slide"><img src="images/gallery_5.jpg" alt="Souvenir 3"></div>
+                    <div class="slide"><img src="images/gallery_7.jpg" alt="Souvenir 4"></div>
+                    <!-- Deuxième jeu d'images pour la boucle -->
+                    <div class="slide"><img src="images/gallery_1.jpg" alt="Souvenir 1"></div>
+                    <div class="slide"><img src="images/gallery_3.jpg" alt="Souvenir 2"></div>
+                    <div class="slide"><img src="images/gallery_5.jpg" alt="Souvenir 3"></div>
+                    <div class="slide"><img src="images/gallery_7.jpg" alt="Souvenir 4"></div>
                 </div>
-                
-                <div class="card animate-on-scroll">
-                    <div class="card-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3 class="card-title">Théodore</h3>
-                    <p class="card-text">
-                        Ingénieur créatif et déterminé, Théodore construit l'avenir avec précision 
-                        et innovation. Sa force et sa tendresse forment un équilibre parfait.
-                    </p>
-                    <div style="color: var(--color-gold); font-weight: 600; margin-top: 1rem;">Ingénieur</div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -136,21 +215,22 @@
             </div>
         </div>
     </section>
-
+ 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-logo">
-                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
-                Sandrine & Théodore
-                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
+        <div class="footer-container">
+            <div class="footer-decoration">
+                <i class="fas fa-heart"></i>
             </div>
-            <p class="footer-text">Célébrons ensemble notre union le 25 octobre 2025</p>
-            <p class="footer-copyright">© Tous droits réservés - CyberFusion GROUP by Server Gold | 2025</p>
+            <h2 class="font-great-vibes footer-names">Sandrine & Théodore</h2>
+            <p class="footer-thank-you">Merci d'avoir partagé ce moment avec nous.</p>
+            <div class="footer-date">25 Octobre 2025</div>
+            <p class="footer-copyright">
+                © 2025 Sandrine & Théodore. Tous droits réservés. <br>
+                <small>Développé par <em>Server Gold</em>, <strong>CyberFusion GROUP</strong></small>
+            </p>
         </div>
-    </footer>
-
+    </footer> 
     <script src="js/main.js"></script>
 </body>
 </html>
-

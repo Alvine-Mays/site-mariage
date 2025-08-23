@@ -7,68 +7,84 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .gallery-grid {
+        /* Nouveaux styles pour la galerie */
+        .gallery-masonry {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 200px;
+            grid-auto-flow: dense;
+            gap: 1.5rem;
             margin: 3rem 0;
         }
-        
-        .gallery-item {
-            position: relative;
-            border-radius: 20px;
+
+        .gallery-masonry-item {
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+        .gallery-masonry-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
-        
-        .gallery-image {
+
+        .gallery-masonry-item img {
             width: 100%;
-            height: 300px;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+        }
+
+        /* Mise en page dynamique pour certains éléments */
+        .gallery-masonry-item:nth-child(5n+1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        .gallery-masonry-item:nth-child(7n+2) {
+            grid-row: span 2;
+        }
+        .gallery-masonry-item:nth-child(8n+4) {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-masonry {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-auto-rows: 150px;
+            }
+            .gallery-masonry-item:nth-child(5n+1),
+            .gallery-masonry-item:nth-child(7n+2),
+            .gallery-masonry-item:nth-child(8n+4) {
+                grid-column: unset;
+                grid-row: unset;
+            }
+            .gallery-masonry-item:nth-child(3n+1) {
+                grid-column: span 2;
+            }
         }
         
-        .gallery-item:hover .gallery-image {
-            transform: scale(1.1);
+        /* -- MODIFICATION POUR LE MOBILE -- */
+        @media (max-width: 480px) {
+            .gallery-masonry {
+                grid-template-columns: repeat(2, 1fr); /* Passage à 2 colonnes pour un affichage dynamique */
+                grid-auto-rows: 160px;
+                gap: 1rem;
+            }
+            .gallery-masonry-item:nth-child(3n+1) {
+                grid-column: unset; /* Annulation de la règle pour tablette */
+            }
+            /* Ajout d'un jeu de tailles pour le mobile */
+            .gallery-masonry-item:nth-child(5n+1) {
+                grid-row: span 2; /* Certains éléments sont plus hauts */
+            }
+            .gallery-masonry-item:nth-child(5n+4) {
+                grid-row: span 2; /* D'autres éléments sont plus hauts pour varier */
+            }
         }
-        
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: white;
-            padding: 2rem 1.5rem 1.5rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-        
-        .gallery-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .gallery-caption {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            line-height: 1.4;
-        }
-        
-        /* Modal */
-        .gallery-modal {
+
+        /* Styles pour la Lightbox (visionneuse) */
+        .lightbox {
             display: none;
             position: fixed;
             z-index: 2000;
@@ -76,59 +92,80 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            animation: fadeIn 0.3s ease;
         }
-        
-        .modal-content {
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 90vw;
+            max-height: 90vh;
             text-align: center;
         }
-        
-        .modal-image {
+
+        #lightbox-image {
             max-width: 100%;
             max-height: 80vh;
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
         }
-        
-        .modal-caption {
+
+        #lightbox-caption {
             color: white;
             font-size: 1.1rem;
             margin-top: 1rem;
             font-family: 'Playfair Display', serif;
+            padding: 0 2rem;
+            line-height: 1.5;
         }
-        
-        .modal-close {
+
+        .lightbox-close, .lightbox-prev, .lightbox-next {
             position: absolute;
-            top: -50px;
-            right: 0;
             color: white;
-            font-size: 2rem;
+            font-size: 2.5rem;
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.3);
+            border: none;
+            user-select: none; /* Empêche la sélection du texte des flèches */
         }
-        
-        .modal-close:hover {
+
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
             color: var(--color-gold);
+            background: rgba(0,0,0,0.5);
         }
+
+        .lightbox-close {
+            top: 15px;
+            right: 35px;
+            font-size: 3rem;
+            background: none;
+        }
+
+        .lightbox-prev, .lightbox-next {
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        .lightbox-prev {
+            left: 15px;
+        }
+
+        .lightbox-next {
+            right: 15px;
+        }
+
         
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .gallery-overlay {
-                transform: translateY(0);
-                background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
-            }
-        }
     </style>
 </head>
 <body>
@@ -166,82 +203,88 @@
 
     <!-- Gallery -->
     <section class="section" style="background: white;">
-        <div class="container">
-            <div class="gallery-grid">
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_1.jpg" alt="Moment romantique au restaurant" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Dîner romantique</h3>
-                        <p class="gallery-caption">Un moment privilégié à deux, savourant chaque instant de bonheur partagé</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_2.jpg" alt="Sortie élégante ensemble" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Élégance à deux</h3>
-                        <p class="gallery-caption">Toujours élégants et complices lors de nos sorties officielles</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_3.jpg" alt="Voyage en voiture" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Aventures ensemble</h3>
-                        <p class="gallery-caption">Nos escapades et voyages, toujours dans la joie et la complicité</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_4.jpg" alt="Moment détendu" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Moments détente</h3>
-                        <p class="gallery-caption">Ces instants précieux où nous profitons simplement d'être ensemble</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_5.jpg" alt="Soirée entre amis" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Soirée entre amis</h3>
-                        <p class="gallery-caption">Entourés de nos proches, partageant rires et bons moments</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_6.jpg" alt="Complicité amoureuse" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Complicité</h3>
-                        <p class="gallery-caption">Cette complicité unique qui nous unit et nous rend plus forts</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_7.jpg" alt="Repas en amoureux" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Repas en amoureux</h3>
-                        <p class="gallery-caption">Savourant ensemble les plaisirs de la table et de la conversation</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_8.jpg" alt="Selfie complice" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Selfie complice</h3>
-                        <p class="gallery-caption">Immortalisant nos sourires et notre bonheur d'être ensemble</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item animate-on-scroll">
-                    <img src="../images/gallery_9.jpg" alt="Moment tendre" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Tendresse</h3>
-                        <p class="gallery-caption">Ces gestes tendres qui expriment tout l'amour que nous nous portons</p>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="gallery-masonry">
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_10.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_11.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_12.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_13.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_14.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_15.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_16.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_17.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_18.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_19.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_20.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_21.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_22.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_23.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_24.jpg" alt="" data-description="">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_25.jpg" alt="" data-description="">
+            </div>
+
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_2.jpg" alt="Élégance à deux" data-description="Toujours élégants et complices lors de nos sorties officielles">
+            </div>
+
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_1.jpg" alt="Dîner romantique" data-description="Un moment privilégié à deux, savourant chaque instant de bonheur partagé">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_3.jpg" alt="Aventures ensemble" data-description="Nos escapades et voyages, toujours dans la joie et la complicité">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_4.jpg" alt="Moments détente" data-description="Ces instants précieux où nous profitons simplement d'être ensemble">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_5.jpg" alt="Soirée entre amis" data-description="Entourés de nos proches, partageant rires et bons moments">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_6.jpg" alt="Complicité" data-description="Cette complicité unique qui nous unit et nous rend plus forts">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_7.jpg" alt="Repas en amoureux" data-description="Savourant ensemble les plaisirs de la table et de la conversation">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_8.jpg" alt="Selfie complice" data-description="Immortalisant nos sourires et notre bonheur d'être ensemble">
+            </div>
+            <div class="gallery-masonry-item">
+                <img src="../images/gallery_9.jpg" alt="Tendresse" data-description="Ces gestes tendres qui expriment tout l'amour que nous nous portons">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Call to Action -->
     <section class="section wedding-gradient">
@@ -261,29 +304,117 @@
         </div>
     </section>
 
-    <!-- Modal -->
-    <div id="gallery-modal" class="gallery-modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <img id="modal-image" class="modal-image" src="" alt="">
-            <p id="modal-caption" class="modal-caption"></p>
+    <!-- Lightbox (Visionneuse) -->
+    <div id="lightbox-modal" class="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close">&times;</span>
+            <button class="lightbox-prev">&#10094;</button>
+            <button class="lightbox-next">&#10095;</button>
+            <img id="lightbox-image" src="" alt="">
+            <p id="lightbox-caption"></p>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-logo">
-                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
-                Sandrine & Théodore
-                <i class="fas fa-heart animate-pulse" style="margin: 0 10px;"></i>
+        <div class="footer-container">
+            <div class="footer-decoration">
+                <i class="fas fa-heart"></i>
             </div>
-            <p class="footer-text">Célébrons ensemble notre union le 25 octobre 2025</p>
-            <p class="footer-copyright">© Tous droits réservés - CyberFusion GROUP by Server Gold | 2025</p>
+            <h2 class="font-great-vibes footer-names">Sandrine & Théodore</h2>
+            <p class="footer-thank-you">Merci d'avoir partagé ce moment avec nous.</p>
+            <div class="footer-date">25 Octobre 2025</div>
+            <p class="footer-copyright">
+                © 2025 Sandrine & Théodore. Tous droits réservés. <br>
+                <small>Développé par <em>Server Gold</em>, <strong>CyberFusion GROUP</strong></small>
+            </p>
         </div>
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+        // Script pour la nouvelle galerie lightbox
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryImages = document.querySelectorAll('.gallery-masonry-item img');
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-image');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const closeBtn = document.querySelector('.lightbox-close');
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+
+            // S'assure que la lightbox existe avant d'exécuter le code
+            if (!lightbox) return;
+
+            let currentIndex = 0;
+            // Crée un tableau d'objets contenant les informations de chaque image
+            const images = Array.from(galleryImages).map(img => ({
+                src: img.src,
+                alt: img.alt,
+                description: img.dataset.description
+            }));
+
+            function showImage(index) {
+                const image = images[index];
+                lightboxImg.src = image.src;
+                lightboxImg.alt = image.alt;
+                lightboxCaption.textContent = image.description;
+                currentIndex = index;
+            }
+
+            function openLightbox(index) {
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêche le défilement de la page
+                showImage(index);
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Rétablit le défilement
+            }
+
+            function showNextImage() {
+                const newIndex = (currentIndex + 1) % images.length;
+                showImage(newIndex);
+            }
+
+            function showPrevImage() {
+                const newIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(newIndex);
+            }
+
+            // Ajoute un écouteur d'événement à chaque image de la galerie
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    openLightbox(index);
+                });
+            });
+
+            // Écouteurs pour les boutons et la fermeture
+            closeBtn.addEventListener('click', closeLightbox);
+            nextBtn.addEventListener('click', showNextImage);
+            prevBtn.addEventListener('click', showPrevImage);
+
+            // Ferme la lightbox en cliquant sur le fond
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // Navigation avec les touches du clavier
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.classList.contains('active')) {
+                    if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    } else if (e.key === 'ArrowLeft') {
+                        showPrevImage();
+                    } else if (e.key === 'Escape') {
+                        closeLightbox();
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
