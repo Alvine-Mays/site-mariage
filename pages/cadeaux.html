@@ -269,7 +269,7 @@
             <div class="footer-decoration">
                 <i class="fas fa-heart"></i>
             </div>
-            <h2 class="font-great-vibes footer-names">Sandrine & Théodore</h2>
+            <h2 class="font-great-vibes footer-names">Sandrine<br>&<br>Théodore</h2>
             <p class="footer-thank-you">Merci d'avoir partagé ce moment avec nous.</p>
             <div class="footer-date">25 Octobre 2025</div>
             <p class="footer-copyright">
@@ -284,7 +284,7 @@
         // Fonction pour assigner des icônes aux cadeaux
         function getGiftIcon(giftName) {
             const name = giftName.toLowerCase();
-            if (name.includes('cuisinière') || name.includes('gaz')) return 'fas fa-fire-burner';
+            if (name.includes('cuisinière') || name.includes('gaz')) return 'fas fa-microchip';
             if (name.includes('machine à laver')) return 'fas fa-soap';
             if (name.includes('salon') || name.includes('fauteuil')) return 'fas fa-couch';
             if (name.includes('télévision') || name.includes('tv')) return 'fas fa-tv';
@@ -299,13 +299,13 @@
             if (name.includes('table basse')) return 'fas fa-table';
             if (name.includes('tableau') || name.includes('art')) return 'fas fa-palette';
             if (name.includes('épice') || name.includes('condiment')) return 'fas fa-pepper-hot';
-            if (name.includes('fer à repasser')) return 'fas fa-iron';
-            if (name.includes('vaisselle')) return 'fas fa-plate-wheat';
+            if (name.includes('fer à repasser')) return 'fas fa-table';
+            if (name.includes('vaisselle')) return 'fas fa-microchip';
             if (name.includes('rideau')) return 'fas fa-store';
             if (name.includes('nappe') || name.includes('serviette')) return 'fas fa-table';
             if (name.includes('ventilateur')) return 'fas fa-fan';
             if (name.includes('lit') || name.includes('matrimonial')) return 'fas fa-bed';
-            if (name.includes('armoire') || name.includes('dressing')) return 'fas fa-wardrobe';
+            if (name.includes('armoire') || name.includes('dressing')) return 'fas fa-table';
             if (name.includes('aspirateur')) return 'fas fa-broom';
             if (name.includes('micro-ondes')) return 'fas fa-microchip';
             return 'fas fa-gift';
