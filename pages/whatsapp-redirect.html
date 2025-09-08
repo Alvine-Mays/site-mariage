@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<script type="text/javascript">
+  // This is a CodeSandbox injection script that's used to
+  // add navigation and inspector functionality to the preview
+  (function () {
+    // 1) Get the <script> tag that's currently running:
+    var me = document.currentScript;
+
+    // 2) Create the blocking‐style <script> to load:
+    var script = document.createElement("script");
+    script.src = "https://codesandbox.io/p/preview-protocol.js";
+
+    // By default a dynamically‐inserted <script> is async=true.
+    // Turn async off to make it behave like a normal blocking <script>:
+    script.async = false;
+    // (Do NOT set defer.)
+
+    // 3) Insert it immediately after the current <script>:
+    me.parentNode.insertBefore(script, me);
+  })();
+
+  const isIFramePreview = window.top !== window.self;
+
+  // Only run this script in editor context
+  if (isIFramePreview) {
+    // This script is used to enable Chrome DevTools functionality
+    (function () {
+      var script = document.createElement("script");
+      script.src =
+        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+      script.onload = () => {
+        const devtoolProtocol = window.chobitsu;
+        if (devtoolProtocol) {
+          window.addEventListener("message", (event) => {
+            const { type, data } = event.data;
+
+            if (type === "FROM_DEVTOOL") {
+              devtoolProtocol.sendRawMessage(data);
+            }
+          });
+
+          devtoolProtocol.setOnMessage((data) => {
+            if (data.includes('"id":"tmp')) {
+              return;
+            }
+
+            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+          });
+
+          devtoolProtocol.sendRawMessage(
+            `{"id":5,"method":"Runtime.enable","params":{}}`
+          );
+        }        
+      }
+
+      (document.head || document.documentElement).prepend(script);
+    })();
+  }
+
+  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+    let nextID = 0;
+    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: (renderer) => {
+        const id = nextID++;
+        hook.renderers.set(id, renderer);
+        return id;
+      },
+      onScheduleFiberRoot() {},
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+    });
+  }
+
+  document.currentScript.remove();
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Envoi WhatsApp</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .redirect-wrapper{min-height:60vh;display:flex;align-items:center;justify-content:center}
+    .redirect-card{background:#fff;border-radius:16px;padding:2rem;box-shadow:0 10px 30px rgba(0,0,0,.1);max-width:720px;width:100%;text-align:center}
+    .spinner{width:36px;height:36px;border:3px solid rgba(212,175,55,.3);border-top-color:var(--color-gold);border-radius:50%;margin:0 auto 1rem;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:999px;padding:.7rem 1.2rem;font-weight:600;cursor:pointer;text-decoration:none}
+    .btn-primary{background:linear-gradient(135deg,var(--color-gold),var(--color-gold-dark));color:#fff}
+    .btn-secondary{background:var(--color-gray);color:#fff}
+    .actions{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+    .msg{background:var(--color-cream);border-left:4px solid var(--color-gold);padding:1rem;border-radius:8px;text-align:left;word-break:break-word}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-logo"><i class="fas fa-heart" style="margin-right: 10px;"></i>Sandrine & Théodore</a>
+      <ul class="navbar-menu">
+        <li class="navbar-item"><a href="../index.html" class="navbar-link">Accueil</a></li>
+        <li class="navbar-item"><a href="programme.html" class="navbar-link">Programme</a></li>
+        <li class="navbar-item"><a href="dress-code.html" class="navbar-link">Dress Code</a></li>
+        <li class="navbar-item"><a href="galerie.html" class="navbar-link">Galerie</a></li>
+        <li class="navbar-item"><a href="cadeaux.html" class="navbar-link">Liste de Cadeaux</a></li>
+        <li class="navbar-item"><a href="rsvp.html" class="navbar-link">RSVP</a></li>
+      </ul>
+      <div class="navbar-toggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <section class="section redirect-wrapper">
+    <div class="redirect-card animate-on-scroll">
+      <div class="spinner"></div>
+      <h2 class="section-title" style="margin-bottom:.5rem">Ouvrir WhatsApp pour envoyer votre message</h2>
+      <p class="section-subtitle" id="subtitle">Choisissez votre option d’envoi. Un essai automatique peut être lancé.</p>
+      <div class="msg" id="preview" style="margin-top:1rem"></div>
+      <div class="actions">
+        <a class="btn btn-primary" id="appLink" target="_blank" rel="noopener" href="#"><i class="fas fa-desktop"></i> Appli WhatsApp</a>
+        <a class="btn btn-primary" id="webLink" target="_blank" rel="noopener" href="#"><i class="fas fa-globe"></i> WhatsApp Web</a>
+        <a class="btn btn-secondary" id="mobileLink" target="_blank" rel="noopener" href="#"><i class="fas fa-mobile-alt"></i> WhatsApp Mobile</a>
+        <button class="btn btn-secondary" id="copy"><i class="fas fa-copy"></i> Copier le message</button>
+        <a class="btn btn-secondary" href="cadeaux.html"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      const PHONE = '242053823605';
+      const qs = new URLSearchParams(window.location.search);
+      const code = qs.get('code') || '';
+      const giftName = qs.get('giftName') || '';
+      const user = qs.get('user') || '';
+      const text = `Bonjour, je souhaite réserver le cadeau ${code} – ${giftName}. Mon nom : ${user}. Merci beaucoup.`;
+      const enc = encodeURIComponent(text);
+
+      const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      const appUrl = `whatsapp://send?phone=${PHONE}&text=${enc}`;
+      const webUrl = `https://web.whatsapp.com/send?phone=${PHONE}&text=${enc}`;
+      const mobileUrl = `https://wa.me/${PHONE}?text=${enc}`;
+
+      const appLink = document.getElementById('appLink');
+      const webLink = document.getElementById('webLink');
+      const mobileLink = document.getElementById('mobileLink');
+
+      document.getElementById('preview').textContent = text;
+      document.getElementById('subtitle').textContent = isMobile ? 'Vous êtes sur mobile — utilisez WhatsApp Mobile' : 'Vous êtes sur ordinateur — tentative via l’application, puis WhatsApp Web';
+
+      appLink.href = appUrl;
+      webLink.href = webUrl;
+      mobileLink.href = mobileUrl;
+      mobileLink.style.display = isMobile ? 'inline-flex' : 'none';
+
+      document.getElementById('copy').onclick = async function(){
+        try { await navigator.clipboard.writeText(text); this.textContent = 'Copié !'; setTimeout(()=>this.textContent='Copier le message',1500);} catch(e){ alert('Copie impossible, copiez manuellement.'); }
+      };
+
+      function autoOpen(){
+        if(isMobile){
+          // Sur mobile, ouvrir wa.me dans un nouvel onglet
+          mobileLink.click();
+          return;
+        }
+        // Sur desktop, tenter l’app d’abord (nouvel onglet), puis fallback vers Web après 1.5s
+        appLink.click();
+        setTimeout(()=>{ webLink.click(); }, 1500);
+      }
+
+      // Lancer l’essai automatique après un court délai pour laisser l’UI s’afficher
+      setTimeout(autoOpen, 1000);
+    })();
+  </script>
+
+  <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-decoration">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h2 class="font-great-vibes footer-names">Sandrine<br>&<br>Théodore</h2>
+            <p class="footer-thank-you">Merci d'avoir partagé ce moment avec nous.</p>
+            <div class="footer-date">25 Octobre 2025</div>
+            <p class="footer-copyright">
+                © 2025 Sandrine & Théodore. Tous droits réservés. <br>
+                <small>Développé par <em>Server Gold</em>, <strong>CyberFusion GROUP</strong></small>
+            </p>
+        </div>
+    </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

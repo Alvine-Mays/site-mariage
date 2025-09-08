@@ -2,6 +2,83 @@
 <html lang="fr">
 
 <head>
+<script type="text/javascript">
+  // This is a CodeSandbox injection script that's used to
+  // add navigation and inspector functionality to the preview
+  (function () {
+    // 1) Get the <script> tag that's currently running:
+    var me = document.currentScript;
+
+    // 2) Create the blocking‐style <script> to load:
+    var script = document.createElement("script");
+    script.src = "https://codesandbox.io/p/preview-protocol.js";
+
+    // By default a dynamically‐inserted <script> is async=true.
+    // Turn async off to make it behave like a normal blocking <script>:
+    script.async = false;
+    // (Do NOT set defer.)
+
+    // 3) Insert it immediately after the current <script>:
+    me.parentNode.insertBefore(script, me);
+  })();
+
+  const isIFramePreview = window.top !== window.self;
+
+  // Only run this script in editor context
+  if (isIFramePreview) {
+    // This script is used to enable Chrome DevTools functionality
+    (function () {
+      var script = document.createElement("script");
+      script.src =
+        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+      script.onload = () => {
+        const devtoolProtocol = window.chobitsu;
+        if (devtoolProtocol) {
+          window.addEventListener("message", (event) => {
+            const { type, data } = event.data;
+
+            if (type === "FROM_DEVTOOL") {
+              devtoolProtocol.sendRawMessage(data);
+            }
+          });
+
+          devtoolProtocol.setOnMessage((data) => {
+            if (data.includes('"id":"tmp')) {
+              return;
+            }
+
+            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+          });
+
+          devtoolProtocol.sendRawMessage(
+            `{"id":5,"method":"Runtime.enable","params":{}}`
+          );
+        }        
+      }
+
+      (document.head || document.documentElement).prepend(script);
+    })();
+  }
+
+  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+    let nextID = 0;
+    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: (renderer) => {
+        const id = nextID++;
+        hook.renderers.set(id, renderer);
+        return id;
+      },
+      onScheduleFiberRoot() {},
+      onCommitFiberRoot() {},
+      onCommitFiberUnmount() {},
+    });
+  }
+
+  document.currentScript.remove();
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste de Cadeaux - Mariage Sandrine & Théodore</title>
@@ -120,6 +197,16 @@
             font-size: 1rem;
             opacity: 0.7;
         }
+        .status-badge{
+            display:inline-block;
+            margin-left:8px;
+            padding:0.25rem 0.6rem;
+            background: var(--color-gold);
+            color:#fff;
+            border-radius:999px;
+            font-size:0.75rem;
+            font-weight:600;
+        }
 
         .gift-instructions {
             background: linear-gradient(135deg, var(--color-gold-light), var(--color-cream));
@@ -158,7 +245,6 @@
 </head>
 
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="../index.html" class="navbar-logo">
@@ -181,7 +267,6 @@
         </div>
     </nav>
 
-    <!-- Header -->
     <section class="section wedding-gradient" style="padding-top: 8rem;">
         <div class="container text-center">
             <h1 class="font-great-vibes" style="font-size: 4rem; color: var(--color-gold); margin-bottom: 2rem;">Liste
@@ -191,7 +276,6 @@
         </div>
     </section>
 
-    <!-- Instructions -->
     <section class="section" style="background: white;">
         <div class="container">
             <div class="gift-instructions animate-on-scroll">
@@ -217,13 +301,10 @@
                 </p>
             </div>
 
-            <div id="gifts-container" class="gifts-grid">
-                <!-- Les cadeaux seront générés par JavaScript -->
-            </div>
+            <div id="gifts-container" class="gifts-grid"></div>
         </div>
     </section>
 
-    <!-- Alternative Gift Ideas -->
     <section class="section wedding-gradient">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Autres idées</h2>
@@ -263,7 +344,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-decoration">
@@ -280,78 +360,6 @@
     </footer>
 
     <script src="../js/main.js"></script>
-    <script>
-        // Fonction pour assigner des icônes aux cadeaux
-        function getGiftIcon(giftName) {
-            const name = giftName.toLowerCase();
-            if (name.includes('cuisinière') || name.includes('gaz')) return 'fas fa-microchip';
-            if (name.includes('machine à laver')) return 'fas fa-soap';
-            if (name.includes('salon') || name.includes('fauteuil')) return 'fas fa-couch';
-            if (name.includes('télévision') || name.includes('tv')) return 'fas fa-tv';
-            if (name.includes('salle à manger') || name.includes('chaise')) return 'fas fa-chair';
-            if (name.includes('réfrigérateur') || name.includes('congélateur')) return 'fas fa-snowflake';
-            if (name.includes('cuisine') || name.includes('marmite')) return 'fas fa-utensils';
-            if (name.includes('mixeur') || name.includes('blender')) return 'fas fa-blender';
-            if (name.includes('bouilloire') || name.includes('cafetière')) return 'fas fa-mug-hot';
-            if (name.includes('thé') || name.includes('café')) return 'fas fa-coffee';
-            if (name.includes('tissu') || name.includes('wax')) return 'fas fa-tshirt';
-            if (name.includes('plaid') || name.includes('couverture')) return 'fas fa-bed';
-            if (name.includes('table basse')) return 'fas fa-table';
-            if (name.includes('tableau') || name.includes('art')) return 'fas fa-palette';
-            if (name.includes('épice') || name.includes('condiment')) return 'fas fa-pepper-hot';
-            if (name.includes('fer à repasser')) return 'fas fa-table';
-            if (name.includes('vaisselle')) return 'fas fa-microchip';
-            if (name.includes('rideau')) return 'fas fa-store';
-            if (name.includes('nappe') || name.includes('serviette')) return 'fas fa-table';
-            if (name.includes('ventilateur')) return 'fas fa-fan';
-            if (name.includes('lit') || name.includes('matrimonial')) return 'fas fa-bed';
-            if (name.includes('armoire') || name.includes('dressing')) return 'fas fa-table';
-            if (name.includes('aspirateur')) return 'fas fa-broom';
-            if (name.includes('micro-ondes')) return 'fas fa-microchip';
-            return 'fas fa-gift';
-        }
-
-        // Fonction pour rendre les cadeaux avec icônes
-        function renderGifts() {
-            const giftsContainer = document.getElementById('gifts-container');
-            if (!giftsContainer) return;
-
-            giftsContainer.innerHTML = '';
-
-            gifts.forEach(gift => {
-                const giftCard = document.createElement('div');
-                giftCard.className = `gift-card ${gift.reserved ? 'reserved' : ''}`;
-
-                const iconClass = getGiftIcon(gift.name);
-
-                giftCard.innerHTML = `
-                    <div class="gift-icon">
-                        <i class="${iconClass}"></i>
-                    </div>
-                    <h3 class="gift-name">${gift.name}</h3> 
-                    ${gift.reserved ? `<p class="gift-reserved">Réservé par ${gift.reservedBy}</p>` : ''}
-                    <div class="gift-actions">
-                        ${!gift.reserved ?
-                        `<button class="btn-reserve" onclick="reserveGift(${gift.id})">
-                                <i class="fas fa-shopping-cart" style="margin-right: 8px;"></i>
-                                Réserver
-                            </button>` :
-                        `<button class="btn-reserved" disabled>
-                                <i class="fas fa-check" style="margin-right: 8px;"></i>
-                                Réservé
-                            </button>`
-                    }
-                    </div>
-                `;
-                giftsContainer.appendChild(giftCard);
-            });
-        }
-
-        // Initialiser l'affichage des cadeaux au chargement
-        document.addEventListener('DOMContentLoaded', function () {
-            renderGifts();
-        });
-    </script>
 </body>
 
 </html>
