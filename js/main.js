@@ -203,14 +203,14 @@ function handleRSVP(event) {
   let message = `Bonjour ! Je confirme ma présence au mariage de Sandrine & Théodore :\n\n`;
   message += `*Nom* : ${guestName}\n\n`;
   message += `*Présence confirmée pour* :\n`;
-  if (dotAttendance === "oui") message += `✅ Dot (23 octobre à 13h)\n`;
-  if (civilAttendance === "oui") message += `✅ Mariage Civil (25 octobre à 12h)\n`;
-  if (religiousAttendance === "oui") message += `✅ Mariage Religieux (25 octobre à 15h)\n`;
+  if (dotAttendance === "oui") message += `✅ Dot (23 octobre à 12h)\n`;
+  if (civilAttendance === "oui") message += `✅ Mariage Civil (25 octobre à 10h)\n`;
+  if (religiousAttendance === "oui") message += `✅ Mariage Religieux (25 octobre à 13h)\n`;
   if (allergies) message += `\nAllergies/Régimes particuliers : ${allergies}`;
   message += `\n\nMerci ! 💕`;
 
-  const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
-  window.location.href = url; // même onglet
+  const url = `https://wa.me/PHONE?text={encodeURIComponent(message)}`;
+  window.open(url, '_blank'); // même onglet
 }
 
 // --- Galerie ---
