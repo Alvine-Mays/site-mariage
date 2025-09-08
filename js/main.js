@@ -209,8 +209,8 @@ function handleRSVP(event) {
   if (allergies) message += `\nAllergies/Régimes particuliers : ${allergies}`;
   message += `\n\nMerci ! 💕`;
 
-  const url = `https://wa.me/PHONE?text={encodeURIComponent(message)}`;
-  window.open(url, '_blank'); // même onglet
+  const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank') // même onglet
 }
 
 // --- Galerie ---
